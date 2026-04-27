@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedro - Português AV02 - 3º Ano</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Quicksand:wght@400;600;700&display=swap');
+:root{--bg:#FFF8F0;--c1:#FF6B6B;--c1l:#FFE8E8;--c2:#4ECDC4;--c2l:#E0F7F5;--c3:#FFD93D;--c3l:#FFF8DC;--c4:#6C5CE7;--c4l:#EDE8FF;--c5:#FF8A5C;--c5l:#FFF0E8;--c6:#2ECC71;--c6l:#E8F8F0;--ok:#2ECC71;--no:#FF6B6B;--txt:#2D3436;--g:#636E72;--sh:0 4px 15px rgba(0,0,0,.1);--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+.hdr{background:linear-gradient(135deg,#FF6B6B,#6C5CE7 50%,#4ECDC4);padding:22px 16px 14px;text-align:center}
+.hdr h1{font-family:'Baloo 2',cursive;color:#fff;font-size:1.6em;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
+.hdr p{color:rgba(255,255,255,.9);font-size:.88em;font-weight:600;margin-top:2px}
+.tabs{display:flex;background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tb{flex:1;padding:10px 4px;border:none;background:#fff;font-family:'Baloo 2',cursive;font-size:.78em;font-weight:700;color:var(--g);cursor:pointer;transition:.3s;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tb span{font-size:1.3em}
+.tb.a{color:var(--c4);background:var(--c4l)}
+.tc{display:none;padding:14px;max-width:700px;margin:0 auto}
+.tc.a{display:block;animation:fi .4s}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* Progress */
+.pbox{background:#fff;border-radius:var(--r);padding:14px;margin-bottom:16px;box-shadow:var(--sh)}
+.plab{font-family:'Baloo 2',cursive;font-size:.92em;display:flex;justify-content:space-between;margin-bottom:6px}
+.pbar{height:12px;background:#f0f0f0;border-radius:6px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#FF6B6B,#FFD93D,#4ECDC4,#6C5CE7);border-radius:6px;transition:width .6s;width:0}
+.scr{text-align:center;font-family:'Baloo 2',cursive;font-size:1.2em;margin-top:6px}
+/* Blocos */
+.bl{margin-bottom:14px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);border-left:5px solid}
+.bh{padding:14px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;color:#fff;user-select:none}
+.bh .ar{margin-left:auto;transition:transform .3s;font-size:1.1em}
+.bl.op .bh .ar{transform:rotate(180deg)}
+.bb{max-height:0;overflow:hidden;transition:max-height .5s ease;background:#fff}
+.bl.op .bb{max-height:12000px}
+.bi{padding:14px}
+.res{background:#f9f9f9;border-radius:10px;padding:12px;margin-bottom:14px;line-height:1.7;font-size:.9em}
+.res p{margin-bottom:8px}
+.con{border-radius:10px;padding:12px;margin-bottom:14px;border:2px dashed}
+.con h4{font-family:'Baloo 2',cursive;font-size:.95em;margin-bottom:6px}
+.ci{background:#fff;border-radius:8px;padding:8px 10px;margin-bottom:5px;font-size:.85em}
+/* Quiz */
+.qs h4{font-family:'Baloo 2',cursive;margin-bottom:10px;font-size:.95em}
+.qq{background:#f9f9f9;border-radius:10px;padding:12px;margin-bottom:10px}
+.qq>p{font-weight:600;margin-bottom:8px;font-size:.9em}
+.ob{display:block;width:100%;padding:10px 12px;margin-bottom:5px;border:2px solid #e0e0e0;border-radius:8px;background:#fff;font-family:'Quicksand',sans-serif;font-size:.85em;font-weight:600;text-align:left;cursor:pointer;transition:.3s}
+.ob:hover{border-color:var(--c4);background:var(--c4l)}
+.ob.ok{background:#d4edda;border-color:var(--ok)}
+.ob.no{background:#f8d7da;border-color:var(--no)}
+.ob:disabled{cursor:default;opacity:.8}
+.fb{padding:8px;border-radius:6px;margin-top:6px;font-size:.82em;font-weight:600;display:none}
+.fb.s{display:block;animation:fi .3s}
+.fb.fok{background:#d4edda;color:#155724}
+.fb.fno{background:#f8d7da;color:#721c24}
+.bcomp{text-align:center;padding:14px;display:none}
+.bcomp.s{display:block;animation:fi .5s}
+.bcomp .emo{font-size:2.2em}
+.bcomp p{font-family:'Baloo 2',cursive;font-size:1em;color:var(--ok);margin-top:6px}
+.chk{display:none;width:22px;height:22px;background:var(--ok);border-radius:50%;color:#fff;text-align:center;line-height:22px;font-size:.7em;margin-left:6px}
+.bl.done .chk{display:inline-block}
+/* Tab 2 */
+.st{font-family:'Baloo 2',cursive;font-size:1.2em;margin:20px 0 12px;padding-bottom:6px;border-bottom:3px dashed;display:flex;align-items:center;gap:6px}
+.tl{position:relative;padding-left:28px;margin:16px 0}
+.tl::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--c1),var(--c4));border-radius:3px}
+.ti{position:relative;margin-bottom:14px;padding:10px 12px;background:#fff;border-radius:10px;box-shadow:var(--sh)}
+.ti::before{content:'';position:absolute;left:-22px;top:14px;width:10px;height:10px;border-radius:50%;border:3px solid var(--c4);background:#fff}
+.ti h4{font-family:'Baloo 2',cursive;font-size:.9em;margin-bottom:3px}
+.ti p{font-size:.82em;color:var(--g)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:14px 0}
+.pc{background:#fff;border-radius:10px;padding:10px;text-align:center;box-shadow:var(--sh);border-top:4px solid;transition:transform .2s}
+.pc:hover{transform:translateY(-2px)}
+.pc .wd{font-family:'Baloo 2',cursive;font-size:.92em;font-weight:700;display:block;margin-bottom:3px}
+.pc .df{font-size:.75em;color:var(--g)}
+.db{background:linear-gradient(135deg,#FFF8DC,#FFE8CC);border:2px solid #FFD93D;border-radius:var(--r);padding:14px;margin:14px 0}
+.db h3{font-family:'Baloo 2',cursive;color:#E17055;margin-bottom:8px;font-size:1em}
+.db li{margin-bottom:6px;font-size:.85em;line-height:1.5;list-style:none;padding-left:22px;position:relative}
+.db li::before{content:'⭐';position:absolute;left:0;font-size:.8em}
+.fq{margin:14px 0}
+.fqi{background:#fff;border-radius:10px;margin-bottom:8px;box-shadow:var(--sh);overflow:hidden;cursor:pointer}
+.fqq{padding:12px;font-weight:700;font-size:.85em;display:flex;align-items:center;gap:6px}
+.fqq::before{content:'❓'}
+.fqa{padding:0 12px;max-height:0;overflow:hidden;transition:.3s;background:#f0fdf4;font-size:.82em;line-height:1.5}
+.fqi.op .fqa{max-height:200px;padding:10px 12px}
+/* Tab 3 */
+.gh{text-align:center;padding:16px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:16px}
+.gh h2{font-family:'Baloo 2',cursive;font-size:1.4em;background:linear-gradient(135deg,var(--c1),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gs{font-family:'Baloo 2',cursive;font-size:1.1em;margin:6px 0}
+.gp{font-size:.82em;color:var(--g)}
+.vc{background:#fff;border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--sh);text-align:center;animation:fi .4s}
+.vs{font-size:.95em;font-weight:600;line-height:1.6;margin-bottom:14px;padding:10px;background:#f9f9f9;border-radius:10px}
+.vbs{display:flex;gap:10px;justify-content:center}
+.vb{flex:1;max-width:140px;padding:12px;border:3px solid;border-radius:10px;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;cursor:pointer;transition:.3s}
+.vb.v{background:#d4edda;border-color:var(--ok);color:#155724}
+.vb.f{background:#f8d7da;border-color:var(--no);color:#721c24}
+.vb:hover{transform:scale(1.05)}
+.vb:disabled{opacity:.5;cursor:default;transform:none}
+.ve{margin-top:12px;padding:10px;border-radius:8px;font-size:.82em;line-height:1.5;display:none;text-align:left}
+.ve.s{display:block;animation:fi .3s}
+.gr{text-align:center;padding:24px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);display:none}
+.gr.s{display:block;animation:fi .5s}
+.gr .be{font-size:2.5em}
+.gr h2{font-family:'Baloo 2',cursive;margin:8px 0}
+.gr .sd{font-size:1.8em;letter-spacing:3px;margin:8px 0}
+.pab{padding:12px 24px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--c4),var(--c2));color:#fff;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;cursor:pointer;margin-top:12px;transition:transform .2s}
+.pab:hover{transform:scale(1.05)}
+.nb{display:inline-block;padding:10px 20px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--c1),var(--c5));color:#fff;font-family:'Baloo 2',cursive;font-size:1em;font-weight:700;cursor:pointer;margin-top:16px;transition:transform .2s;text-decoration:none}
+.nb:hover{transform:scale(1.05)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <h1>📖 Estudos do Pedro</h1>
+  <p>Português AV02 • 3º Ano • 28/04</p>
+</header>
+
+<nav class="tabs">
+  <button class="tb a" onclick="swTab('t1')" id="b1"><span>📚</span>Leitura</button>
+  <button class="tb" onclick="swTab('t2')" id="b2"><span>🌟</span>Resumo</button>
+  <button class="tb" onclick="swTab('t3')" id="b3"><span>🎮</span>V ou F</button>
+</nav>
+
+<!-- ========== TAB 1: LEITURA GUIADA ========== -->
+<div class="tc a" id="t1">
+<div class="pbox">
+  <div class="plab"><span>📊 Progresso</span><span id="ptx">0 de 6 blocos</span></div>
+  <div class="pbar"><div class="pfill" id="pfl"></div></div>
+  <div class="scr" id="scd">⭐ 0 estrelas</div>
+</div>
+
+<!-- BLOCO 1: DIÁRIO -->
+<div class="bl" id="B1" style="border-color:var(--c1)" data-d="0" data-t="3">
+<div class="bh" style="background:var(--c1)" onclick="tgl('B1')"><span>📓</span>Bloco 1 — O Diário<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="res">
+<p>Um <strong>diário</strong> é como um caderninho secreto onde você escreve o que aconteceu no seu dia, o que sentiu e o que pensou. É como conversar com um amigo imaginário!</p>
+<p>No livro, vimos o <strong>Diário de Anne Frank</strong>. Anne era uma menina judia que viveu durante a Segunda Guerra Mundial. Ela escrevia tudo no diário, que ela chamava de <strong>Kitty</strong>.</p>
+<p>O diário sempre tem: uma <strong>data</strong> no início, o <strong>relato</strong> do que aconteceu, é escrito na <strong>1ª pessoa</strong> (eu fiz, eu vi...) e usa <strong>linguagem informal</strong> (como se estivesse conversando).</p>
+</div>
+<div class="con" style="border-color:var(--c1);background:var(--c1l)">
+<h4>🔑 Conceitos Importantes</h4>
+<div class="ci"><strong>Diário:</strong> texto pessoal e datado onde registramos o dia a dia</div>
+<div class="ci"><strong>1ª pessoa:</strong> o autor fala sobre si mesmo (eu, meu, minha)</div>
+<div class="ci"><strong>Linguagem informal:</strong> jeito descontraído de escrever, como uma conversa</div>
+<div class="ci"><strong>Estrutura:</strong> data → vocativo → relato → despedida</div>
+</div>
+<div class="qs"><h4>🧩 Hora do Quiz!</h4>
+<div class="qq" id="B1q1">
+<p>1. O diário é escrito em qual pessoa?</p>
+<button class="ob" onclick="resp(this,'B1',1,false)">a) 3ª pessoa (ele, ela)</button>
+<button class="ob" onclick="resp(this,'B1',1,true)">b) 1ª pessoa (eu)</button>
+<button class="ob" onclick="resp(this,'B1',1,false)">c) 2ª pessoa (tu, você)</button>
+<div class="fb" id="B1f1"></div>
+</div>
+<div class="qq" id="B1q2">
+<p>2. Qual é o nome que Anne Frank deu ao diário dela?</p>
+<button class="ob" onclick="resp(this,'B1',2,false)">a) Moortie</button>
+<button class="ob" onclick="resp(this,'B1',2,true)">b) Kitty</button>
+<button class="ob" onclick="resp(this,'B1',2,false)">c) Margot</button>
+<div class="fb" id="B1f2"></div>
+</div>
+<div class="qq" id="B1q3">
+<p>3. O que todo diário precisa ter no começo?</p>
+<button class="ob" onclick="resp(this,'B1',3,true)">a) A data</button>
+<button class="ob" onclick="resp(this,'B1',3,false)">b) O endereço</button>
+<button class="ob" onclick="resp(this,'B1',3,false)">c) O nome do autor no título</button>
+<div class="fb" id="B1f3"></div>
+</div>
+</div>
+<div class="bcomp" id="B1c"><div class="emo">🎉🌟</div><p>Bloco 1 completo!</p></div>
+</div></div>
+</div>
+
+<!-- BLOCO 2: LINGUAGEM FORMAL E INFORMAL -->
+<div class="bl" id="B2" style="border-color:var(--c2)" data-d="0" data-t="3">
+<div class="bh" style="background:var(--c2)" onclick="tgl('B2')"><span>🗣️</span>Bloco 2 — Linguagem Formal e Informal<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="res">
+<p>Existem dois jeitos de falar e escrever: o <strong>formal</strong> e o <strong>informal</strong>.</p>
+<p>A <strong>linguagem formal</strong> é usada quando falamos com pessoas que não conhecemos bem, como o diretor da escola, ou em documentos importantes. Exemplo: "Prezado senhor, informo que estarei ausente."</p>
+<p>A <strong>linguagem informal</strong> é usada com amigos, família e em diários. Exemplo: "Oi, gente! Não vou poder ir pro encontro."</p>
+<p>Palavras como <strong>tá, né, pra, deprê, bugado</strong> são <strong>gírias</strong> — fazem parte da linguagem informal!</p>
+</div>
+<div class="con" style="border-color:var(--c2);background:var(--c2l)">
+<h4>🔑 Conceitos Importantes</h4>
+<div class="ci"><strong>Linguagem formal:</strong> usada em discursos, cartas comerciais, apresentações</div>
+<div class="ci"><strong>Linguagem informal:</strong> usada em conversas, diários, bilhetes, mensagens</div>
+<div class="ci"><strong>Gírias:</strong> palavras inventadas ou abreviadas (zuado, bugado, tá, pra)</div>
+<div class="ci"><strong>Variação regional:</strong> mesma coisa com nomes diferentes (mandioca = aipim = macaxeira)</div>
+</div>
+<div class="qs"><h4>🧩 Hora do Quiz!</h4>
+<div class="qq" id="B2q1">
+<p>1. A frase "Oi, tudo bem? Tô doida pra te ver!" é de qual tipo?</p>
+<button class="ob" onclick="resp(this,'B2',1,false)">a) Formal</button>
+<button class="ob" onclick="resp(this,'B2',1,true)">b) Informal</button>
+<button class="ob" onclick="resp(this,'B2',1,false)">c) Nenhum dos dois</button>
+<div class="fb" id="B2f1"></div>
+</div>
+<div class="qq" id="B2q2">
+<p>2. Em qual situação usamos linguagem formal?</p>
+<button class="ob" onclick="resp(this,'B2',2,false)">a) Conversando com amigos</button>
+<button class="ob" onclick="resp(this,'B2',2,false)">b) Escrevendo no diário</button>
+<button class="ob" onclick="resp(this,'B2',2,true)">c) Escrevendo uma carta para o diretor da escola</button>
+<div class="fb" id="B2f2"></div>
+</div>
+<div class="qq" id="B2q3">
+<p>3. Qual dessas palavras é uma gíria?</p>
+<button class="ob" onclick="resp(this,'B2',3,false)">a) Telefone</button>
+<button class="ob" onclick="resp(this,'B2',3,true)">b) Bugado</button>
+<button class="ob" onclick="resp(this,'B2',3,false)">c) Caderno</button>
+<div class="fb" id="B2f3"></div>
+</div>
+</div>
+<div class="bcomp" id="B2c"><div class="emo">🎉🌟</div><p>Bloco 2 completo!</p></div>
+</div></div>
+</div>
+
+<!-- BLOCO 3: USAR M OU N -->
+<div class="bl" id="B3" style="border-color:var(--c3)" data-d="0" data-t="3">
+<div class="bh" style="background:var(--c3);color:#333" onclick="tgl('B3')"><span>🔤</span>Bloco 3 — Usar M ou N<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="res">
+<p>Na língua portuguesa, as letras <strong>M</strong> e <strong>N</strong> às vezes aparecem no meio das palavras fazendo um som "pelo nariz" (som nasal).</p>
+<p>A regra é simples:</p>
+<p>👉 Usamos <strong>M antes de P e B</strong>: ca<strong>m</strong>po, bo<strong>m</strong>bom, la<strong>m</strong>pada, te<strong>m</strong>po, ta<strong>m</strong>bém</p>
+<p>👉 Usamos <strong>N antes das outras consoantes</strong>: ve<strong>n</strong>to, ca<strong>n</strong>tiga, ca<strong>n</strong>tor, le<strong>n</strong>te</p>
+<p>🎵 <strong>Dica para decorar:</strong> "Antes de P e B, M eu vou usar. Antes das outras, N vai ficar!"</p>
+</div>
+<div class="con" style="border-color:var(--c3);background:var(--c3l)">
+<h4>🔑 Conceitos Importantes</h4>
+<div class="ci"><strong>M antes de P:</strong> campo, tempo, lâmpada, tampa, emprego</div>
+<div class="ci"><strong>M antes de B:</strong> bombom, também, tambor, umbigo</div>
+<div class="ci"><strong>N antes das demais:</strong> vento, lente, cantiga, cantor, dente</div>
+</div>
+<div class="qs"><h4>🧩 Hora do Quiz!</h4>
+<div class="qq" id="B3q1">
+<p>1. Complete: CA___PO (campo)</p>
+<button class="ob" onclick="resp(this,'B3',1,true)">a) M</button>
+<button class="ob" onclick="resp(this,'B3',1,false)">b) N</button>
+<button class="ob" onclick="resp(this,'B3',1,false)">c) Tanto faz</button>
+<div class="fb" id="B3f1"></div>
+</div>
+<div class="qq" id="B3q2">
+<p>2. Na palavra VE_TO, usamos qual letra?</p>
+<button class="ob" onclick="resp(this,'B3',2,false)">a) M, porque vem antes de T</button>
+<button class="ob" onclick="resp(this,'B3',2,true)">b) N, porque T não é P nem B</button>
+<button class="ob" onclick="resp(this,'B3',2,false)">c) Nenhuma letra</button>
+<div class="fb" id="B3f2"></div>
+</div>
+<div class="qq" id="B3q3">
+<p>3. Antes de P e B, usamos sempre a letra:</p>
+<button class="ob" onclick="resp(this,'B3',3,false)">a) N</button>
+<button class="ob" onclick="resp(this,'B3',3,false)">b) S</button>
+<button class="ob" onclick="resp(this,'B3',3,true)">c) M</button>
+<div class="fb" id="B3f3"></div>
+</div>
+</div>
+<div class="bcomp" id="B3c"><div class="emo">🎉🌟</div><p>Bloco 3 completo!</p></div>
+</div></div>
+</div>
+
+<!-- BLOCO 4: CARTAS -->
+<div class="bl" id="B4" style="border-color:var(--c4)" data-d="0" data-t="3">
+<div class="bh" style="background:var(--c4)" onclick="tgl('B4')"><span>✉️</span>Bloco 4 — Cartas<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="res">
+<p>Uma <strong>carta</strong> é um texto que serve para se comunicar com alguém que está longe. Ela tem uma estrutura certinha!</p>
+<p>No livro, vimos a carta que <strong>Monteiro Lobato</strong> escreveu para um menino chamado <strong>Gilson</strong>. Monteiro Lobato foi um dos escritores mais famosos do Brasil — ele criou o <strong>Sítio do Picapau Amarelo</strong>!</p>
+<p>A carta tem estas partes: <strong>local e data</strong> → <strong>saudação</strong> (Querido amigo...) → <strong>mensagem</strong> → <strong>despedida</strong> → <strong>assinatura</strong>.</p>
+<p>Quem escreve a carta é o <strong>remetente</strong>. Quem recebe é o <strong>destinatário</strong>.</p>
+</div>
+<div class="con" style="border-color:var(--c4);background:var(--c4l)">
+<h4>🔑 Conceitos Importantes</h4>
+<div class="ci"><strong>Remetente:</strong> quem escreve e envia a carta</div>
+<div class="ci"><strong>Destinatário:</strong> quem recebe a carta</div>
+<div class="ci"><strong>Estrutura:</strong> local/data, saudação, mensagem, despedida, assinatura</div>
+<div class="ci"><strong>Monteiro Lobato:</strong> nasceu em 1882, em Taubaté-SP, criou o Sítio do Picapau Amarelo</div>
+</div>
+<div class="qs"><h4>🧩 Hora do Quiz!</h4>
+<div class="qq" id="B4q1">
+<p>1. Quem ESCREVE a carta é chamado de:</p>
+<button class="ob" onclick="resp(this,'B4',1,true)">a) Remetente</button>
+<button class="ob" onclick="resp(this,'B4',1,false)">b) Destinatário</button>
+<button class="ob" onclick="resp(this,'B4',1,false)">c) Carteiro</button>
+<div class="fb" id="B4f1"></div>
+</div>
+<div class="qq" id="B4q2">
+<p>2. Qual livro Monteiro Lobato citou na carta para Gilson?</p>
+<button class="ob" onclick="resp(this,'B4',2,false)">a) Viagem ao céu</button>
+<button class="ob" onclick="resp(this,'B4',2,true)">b) Emília no país da Gramática</button>
+<button class="ob" onclick="resp(this,'B4',2,false)">c) História do mundo para crianças</button>
+<div class="fb" id="B4f2"></div>
+</div>
+<div class="qq" id="B4q3">
+<p>3. A carta de Monteiro Lobato usava linguagem:</p>
+<button class="ob" onclick="resp(this,'B4',3,false)">a) Formal, pois tratava Gilson como desconhecido</button>
+<button class="ob" onclick="resp(this,'B4',3,true)">b) Informal, pois tratava Gilson como pessoa próxima</button>
+<button class="ob" onclick="resp(this,'B4',3,false)">c) Nenhuma das duas</button>
+<div class="fb" id="B4f3"></div>
+</div>
+</div>
+<div class="bcomp" id="B4c"><div class="emo">🎉🌟</div><p>Bloco 4 completo!</p></div>
+</div></div>
+</div>
+
+<!-- BLOCO 5: SEPARAÇÃO SILÁBICA, SÍLABA TÔNICA, ENCONTROS -->
+<div class="bl" id="B5" style="border-color:var(--c5)" data-d="0" data-t="3">
+<div class="bh" style="background:var(--c5)" onclick="tgl('B5')"><span>✂️</span>Bloco 5 — Sílabas, Tônica e Encontros<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="res">
+<p><strong>Sílaba</strong> é cada pedacinho da palavra que falamos de uma vez. Para saber quantas sílabas uma palavra tem, é só contar quantas vezes você mexe a boca!</p>
+<p>📏 <strong>Classificação por número de sílabas:</strong></p>
+<p>• <strong>Monossílaba:</strong> 1 sílaba → pão, mão, céu</p>
+<p>• <strong>Dissílaba:</strong> 2 sílabas → me-sa, car-ro, pei-xe</p>
+<p>• <strong>Trissílaba:</strong> 3 sílabas → mú-si-ca, pás-sa-ro, má-gi-co</p>
+<p>• <strong>Polissílaba:</strong> 4 ou mais → cho-co-la-te, con-fei-tei-ro</p>
+<p>🔊 A <strong>sílaba tônica</strong> é a que falamos com mais força! Toda palavra tem uma. Ela pode estar na última, penúltima ou antepenúltima posição.</p>
+<p>🤝 <strong>Encontro vocálico</strong> = duas VOGAIS juntas: f<strong>ei</strong>jão, g<strong>oi</strong>aba, c<strong>ai</strong>u</p>
+<p>🤝 <strong>Encontro consonantal</strong> = duas CONSOANTES juntas: <strong>pr</strong>ato, li<strong>vr</strong>o, <strong>fl</strong>or</p>
+<p>📌 Letras dobradas (RR, SS) se separam: car-ro, pas-sa-ro</p>
+</div>
+<div class="con" style="border-color:var(--c5);background:var(--c5l)">
+<h4>🔑 Conceitos Importantes</h4>
+<div class="ci"><strong>Sílaba tônica:</strong> a sílaba mais forte da palavra</div>
+<div class="ci"><strong>Encontro vocálico:</strong> duas ou mais vogais juntas (caiu, feijão, noite)</div>
+<div class="ci"><strong>Encontro consonantal:</strong> duas ou mais consoantes juntas (prato, frase, livro)</div>
+<div class="ci"><strong>Letras dobradas:</strong> RR e SS sempre se separam (car-ro, pas-so)</div>
+<div class="ci"><strong>Classificação:</strong> monossílaba (1), dissílaba (2), trissílaba (3), polissílaba (4+)</div>
+</div>
+<div class="qs"><h4>🧩 Hora do Quiz!</h4>
+<div class="qq" id="B5q1">
+<p>1. A palavra "chocolate" é:</p>
+<button class="ob" onclick="resp(this,'B5',1,false)">a) Dissílaba</button>
+<button class="ob" onclick="resp(this,'B5',1,false)">b) Trissílaba</button>
+<button class="ob" onclick="resp(this,'B5',1,true)">c) Polissílaba (cho-co-la-te = 4)</button>
+<div class="fb" id="B5f1"></div>
+</div>
+<div class="qq" id="B5q2">
+<p>2. Qual palavra tem encontro vocálico?</p>
+<button class="ob" onclick="resp(this,'B5',2,true)">a) Caiu</button>
+<button class="ob" onclick="resp(this,'B5',2,false)">b) Casa</button>
+<button class="ob" onclick="resp(this,'B5',2,false)">c) Bolo</button>
+<div class="fb" id="B5f2"></div>
+</div>
+<div class="qq" id="B5q3">
+<p>3. Qual palavra tem encontro consonantal?</p>
+<button class="ob" onclick="resp(this,'B5',3,true)">a) Prato</button>
+<button class="ob" onclick="resp(this,'B5',3,false)">b) Mesa</button>
+<button class="ob" onclick="resp(this,'B5',3,false)">c) Bola</button>
+<div class="fb" id="B5f3"></div>
+</div>
+</div>
+<div class="bcomp" id="B5c"><div class="emo">🎉🌟</div><p>Bloco 5 completo!</p></div>
+</div></div>
+</div>
+
+<!-- BLOCO 6: L ou LH -->
+<div class="bl" id="B6" style="border-color:var(--c6)" data-d="0" data-t="3">
+<div class="bh" style="background:var(--c6)" onclick="tgl('B6')"><span>📝</span>Bloco 6 — Escrita com L ou LH<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="res">
+<p>L e LH parecem parecidos, mas mudam totalmente o significado da palavra!</p>
+<p>👉 <strong>MALA</strong> (de viagem) ≠ <strong>MALHA</strong> (roupa de lã)</p>
+<p>👉 <strong>GALO</strong> (animal) ≠ <strong>GALHO</strong> (parte da árvore)</p>
+<p>🧠 <strong>Dica esperta:</strong> Palavras com <strong>LI</strong> que geram dúvida geralmente têm acento na sílaba anterior: famí<strong>lia</strong>, mobí<strong>lia</strong>. Já palavras com <strong>LH</strong> não têm acento: fa<strong>lha</strong>, ca<strong>lha</strong>, mi<strong>lho</strong>.</p>
+<p>Exemplos com L: bo<strong>l</strong>a, vi<strong>l</strong>a, ga<strong>l</strong>o, fi<strong>l</strong>a, mo<strong>l</strong>a</p>
+<p>Exemplos com LH: pa<strong>lh</strong>a, fo<strong>lh</strong>a, fi<strong>lh</strong>o, mi<strong>lh</strong>o, o<strong>lh</strong>o, ove<strong>lh</strong>a</p>
+</div>
+<div class="con" style="border-color:var(--c6);background:var(--c6l)">
+<h4>🔑 Conceitos Importantes</h4>
+<div class="ci"><strong>L muda para LH:</strong> mala→malha, galo→galho, fala→falha, bola→bolha</div>
+<div class="ci"><strong>Dica do acento:</strong> famíLIA (acento antes = LI) / faLHA (sem acento = LH)</div>
+<div class="ci"><strong>Palavras com LH:</strong> palha, folha, filho, milho, olho, ovelha, espantalho</div>
+</div>
+<div class="qs"><h4>🧩 Hora do Quiz!</h4>
+<div class="qq" id="B6q1">
+<p>1. Complete: PA___A (tipo de cobertura de casas, feita de capim seco)</p>
+<button class="ob" onclick="resp(this,'B6',1,false)">a) PA-L-A (pala)</button>
+<button class="ob" onclick="resp(this,'B6',1,true)">b) PA-LH-A (palha)</button>
+<button class="ob" onclick="resp(this,'B6',1,false)">c) PA-LI-A</button>
+<div class="fb" id="B6f1"></div>
+</div>
+<div class="qq" id="B6q2">
+<p>2. "Galo" e "Galho" têm o mesmo significado?</p>
+<button class="ob" onclick="resp(this,'B6',2,true)">a) Não! Galo é um animal e galho é parte da árvore</button>
+<button class="ob" onclick="resp(this,'B6',2,false)">b) Sim, significam a mesma coisa</button>
+<button class="ob" onclick="resp(this,'B6',2,false)">c) Não sei</button>
+<div class="fb" id="B6f2"></div>
+</div>
+<div class="qq" id="B6q3">
+<p>3. A palavra "família" se escreve com LI ou LH?</p>
+<button class="ob" onclick="resp(this,'B6',3,true)">a) LI — famí-LI-a (tem acento antes)</button>
+<button class="ob" onclick="resp(this,'B6',3,false)">b) LH — famá-LH-a</button>
+<button class="ob" onclick="resp(this,'B6',3,false)">c) L — famí-L-a</button>
+<div class="fb" id="B6f3"></div>
+</div>
+</div>
+<div class="bcomp" id="B6c"><div class="emo">🎉🌟</div><p>Bloco 6 completo!</p></div>
+</div></div>
+</div>
+
+<!-- BLOCO REVISÃO GERAL -->
+<div class="bl" id="BR" style="border-color:#E84393" data-d="0" data-t="3">
+<div class="bh" style="background:linear-gradient(135deg,#E84393,#6C5CE7)" onclick="tgl('BR')"><span>🏆</span>Revisão Geral — Todos os Temas!<span class="chk">✓</span><span class="ar">▼</span></div>
+<div class="bb"><div class="bi">
+<div class="qs"><h4>🧩 Revisão misturando tudo!</h4>
+<div class="qq" id="BRq1">
+<p>1. O diário de Anne Frank é escrito com linguagem:</p>
+<button class="ob" onclick="resp(this,'BR',1,true)">a) Informal</button>
+<button class="ob" onclick="resp(this,'BR',1,false)">b) Formal</button>
+<button class="ob" onclick="resp(this,'BR',1,false)">c) Científica</button>
+<div class="fb" id="BRf1"></div>
+</div>
+<div class="qq" id="BRq2">
+<p>2. Complete: BO___BOM (doce)</p>
+<button class="ob" onclick="resp(this,'BR',2,true)">a) M (BOMBOM — M antes de B)</button>
+<button class="ob" onclick="resp(this,'BR',2,false)">b) N (BONBOM)</button>
+<button class="ob" onclick="resp(this,'BR',2,false)">c) Nenhuma</button>
+<div class="fb" id="BRf2"></div>
+</div>
+<div class="qq" id="BRq3">
+<p>3. Na carta, quem RECEBE a carta é o:</p>
+<button class="ob" onclick="resp(this,'BR',3,false)">a) Remetente</button>
+<button class="ob" onclick="resp(this,'BR',3,true)">b) Destinatário</button>
+<button class="ob" onclick="resp(this,'BR',3,false)">c) Carteiro</button>
+<div class="fb" id="BRf3"></div>
+</div>
+</div>
+<div class="bcomp" id="BRc"><div class="emo">🏆🎉⭐</div><p>Revisão completa! Você arrasou!</p></div>
+</div></div>
+</div>
+
+<div id="allDone" style="display:none;text-align:center;padding:24px;background:white;border-radius:14px;box-shadow:var(--sh);margin:16px 0">
+<div style="font-size:3em">🎊🏆🌟</div>
+<h2 style="font-family:'Baloo 2',cursive;color:var(--c4);margin:10px 0">Parabéns, Pedro!</h2>
+<p style="font-size:.95em">Você terminou toda a Leitura Guiada!</p>
+<button class="nb" onclick="swTab('t2')">🌟 Ver o Resumo Final</button>
+</div>
+
+</div>
+
+<!-- ========== TAB 2: RESUMO FINAL ========== -->
+<div class="tc" id="t2">
+
+<div style="text-align:center;padding:20px;background:white;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:16px">
+<div style="font-size:2.5em">🎉📚⭐</div>
+<h2 style="font-family:'Baloo 2',cursive;background:linear-gradient(135deg,var(--c1),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pedro terminou a leitura!</h2>
+<p style="font-size:.88em;color:var(--g);margin-top:4px">Unidades 2 e 3 de Português — Revisão completa</p>
+</div>
+
+<h3 class="st" style="border-color:var(--c1)">📅 Linha do Tempo do Conteúdo</h3>
+<div class="tl">
+<div class="ti" style="animation-delay:.1s"><h4 style="color:var(--c1)">📓 Diário</h4><p>Texto pessoal e datado. Anne Frank escreveu um dos mais famosos. Usa 1ª pessoa e linguagem informal.</p></div>
+<div class="ti" style="animation-delay:.2s"><h4 style="color:var(--c2)">🗣️ Linguagem Formal e Informal</h4><p>Formal = situações sérias. Informal = amigos, diários, bilhetes. Gírias são informais.</p></div>
+<div class="ti" style="animation-delay:.3s"><h4 style="color:var(--c3)">🔤 Usar M ou N</h4><p>M antes de P e B. N antes das demais consoantes. Regra fixa!</p></div>
+<div class="ti" style="animation-delay:.4s"><h4 style="color:var(--c4)">✉️ Cartas</h4><p>Texto com remetente e destinatário. Estrutura: local/data, saudação, mensagem, despedida, assinatura.</p></div>
+<div class="ti" style="animation-delay:.5s"><h4 style="color:var(--c5)">✂️ Sílabas, Tônica e Encontros</h4><p>Sílaba = pedaço da palavra. Tônica = a mais forte. Encontro vocálico (vogais) e consonantal (consoantes).</p></div>
+<div class="ti" style="animation-delay:.6s"><h4 style="color:var(--c6)">📝 L ou LH</h4><p>L e LH mudam o significado. Dica: LI tem acento antes (família), LH não (falha).</p></div>
+</div>
+
+<h3 class="st" style="border-color:var(--c4)">📖 Palavras Importantes</h3>
+<div class="pg">
+<div class="pc" style="border-color:var(--c1)"><span class="wd">Diário</span><span class="df">Texto pessoal e datado</span></div>
+<div class="pc" style="border-color:var(--c1)"><span class="wd">1ª pessoa</span><span class="df">Eu, meu, minha</span></div>
+<div class="pc" style="border-color:var(--c2)"><span class="wd">Formal</span><span class="df">Linguagem séria</span></div>
+<div class="pc" style="border-color:var(--c2)"><span class="wd">Informal</span><span class="df">Linguagem descontraída</span></div>
+<div class="pc" style="border-color:var(--c2)"><span class="wd">Gíria</span><span class="df">Palavra informal (tá, pra)</span></div>
+<div class="pc" style="border-color:var(--c4)"><span class="wd">Remetente</span><span class="df">Quem envia a carta</span></div>
+<div class="pc" style="border-color:var(--c4)"><span class="wd">Destinatário</span><span class="df">Quem recebe a carta</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Sílaba</span><span class="df">Pedaço da palavra</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Tônica</span><span class="df">Sílaba mais forte</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Monossílaba</span><span class="df">1 sílaba (pão)</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Dissílaba</span><span class="df">2 sílabas (me-sa)</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Trissílaba</span><span class="df">3 sílabas (mú-si-ca)</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Polissílaba</span><span class="df">4+ sílabas</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Enc. Vocálico</span><span class="df">Vogais juntas (cai-u)</span></div>
+<div class="pc" style="border-color:var(--c5)"><span class="wd">Enc. Consonantal</span><span class="df">Consoantes juntas (pra-to)</span></div>
+</div>
+
+<h3 class="st" style="border-color:var(--c3)">💡 Dicas de Prova</h3>
+<div class="db">
+<h3>⚡ Decore isso!</h3>
+<ul>
+<li>M antes de P e B, N antes das demais!</li>
+<li>Diário = 1ª pessoa + data + informal</li>
+<li>Carta = remetente + destinatário + estrutura fixa</li>
+<li>Monteiro Lobato = Sítio do Picapau Amarelo</li>
+<li>Anne Frank (1929-1945) = diário famoso</li>
+<li>Sílaba tônica = a mais forte da palavra</li>
+<li>RR e SS sempre se separam (car-ro, pas-so)</li>
+<li>Encontro vocálico = VOGAIS juntas</li>
+<li>Encontro consonantal = CONSOANTES juntas</li>
+<li>Família = LI (tem acento) / Falha = LH (sem acento)</li>
+<li>Chocolate = po-lis-sí-la-ba (4 sílabas)</li>
+<li>Galo ≠ Galho / Mala ≠ Malha / Fila ≠ Filha</li>
+</ul>
+</div>
+
+<h3 class="st" style="border-color:var(--c6)">⚡ Mini-Quiz Relâmpago</h3>
+<p style="font-size:.82em;color:var(--g);margin-bottom:10px">Clique na pergunta para ver a resposta!</p>
+<div class="fq">
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">O que é um diário?</div><div class="fqa">Um texto pessoal onde escrevemos sobre nosso dia, sentimentos e pensamentos. É datado e escrito na 1ª pessoa.</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">Qual a diferença entre remetente e destinatário?</div><div class="fqa">Remetente é quem ESCREVE e ENVIA a carta. Destinatário é quem RECEBE a carta.</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">Quando usamos M e quando usamos N?</div><div class="fqa">M antes de P e B (campo, bombom). N antes das demais consoantes (vento, cantiga).</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">O que é sílaba tônica?</div><div class="fqa">É a sílaba que falamos com mais força na palavra. Toda palavra tem uma! Pode estar na última, penúltima ou antepenúltima posição.</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">O que é encontro vocálico?</div><div class="fqa">Quando duas ou mais VOGAIS aparecem juntas na palavra. Exemplos: caiu (a-i), feijão (e-i), goiaba (o-i).</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">O que é encontro consonantal?</div><div class="fqa">Quando duas ou mais CONSOANTES aparecem juntas. Exemplos: prato (p-r), livro (v-r), flor (f-l).</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">Qual a diferença entre L e LH?</div><div class="fqa">L e LH mudam o significado: galo (animal) ≠ galho (árvore), mala (bagagem) ≠ malha (roupa). Dica: palavras com LI costumam ter acento antes (família).</div></div>
+<div class="fqi" onclick="this.classList.toggle('op')"><div class="fqq">Como classificar palavras pelo número de sílabas?</div><div class="fqa">1 sílaba = monossílaba (pão), 2 = dissílaba (mesa), 3 = trissílaba (música), 4 ou mais = polissílaba (chocolate).</div></div>
+</div>
+
+<div style="text-align:center;margin:24px 0">
+<button class="nb" onclick="swTab('t3')">🎮 Quero jogar Verdadeiro ou Falso!</button>
+</div>
+</div>
+
+<!-- ========== TAB 3: JOGO V OU F ========== -->
+<div class="tc" id="t3">
+<div class="gh">
+<h2>🎮 Verdadeiro ou Falso?</h2>
+<div class="gs" id="gsc">⭐ 0 acertos</div>
+<div class="gp" id="gpg">Pergunta 1 de 12</div>
+<div class="pbar" style="margin-top:8px"><div class="pfill" id="gpfl" style="width:0"></div></div>
+</div>
+<div id="gameArea"></div>
+<div class="gr" id="gameResult">
+<div class="be" id="grEmoji"></div>
+<h2 id="grTitle"></h2>
+<div class="sd" id="grStars"></div>
+<p id="grText" style="color:var(--g);font-size:.9em"></p>
+<p style="font-family:'Baloo 2',cursive;font-size:1.3em;margin:8px 0" id="grPct"></p>
+<button class="pab" onclick="startGame()">🔄 Jogar de novo!</button>
+</div>
+</div>
+
+<script>
+// Tab switching
+function swTab(id){
+  document.querySelectorAll('.tc').forEach(t=>t.classList.remove('a'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('a'));
+  document.getElementById(id).classList.add('a');
+  const map={t1:'b1',t2:'b2',t3:'b3'};
+  document.getElementById(map[id]).classList.add('a');
+  if(id==='t3'&&!gameStarted) startGame();
+  window.scrollTo(0,0);
+}
+
+// Blocos
+function tgl(id){
+  document.getElementById(id).classList.toggle('op');
+}
+
+// Score tracking
+let stars=0, blocosDone=0, totalBlocos=7;
+const feedbacks={
+  B1:{1:'O diário é escrito na 1ª pessoa — o autor fala sobre si mesmo: eu fiz, eu vi...',2:'Anne Frank chamou seu diário de Kitty, como se fosse uma amiga!',3:'Todo diário começa com a data, para situar os fatos no tempo.'},
+  B2:{1:'Usa gírias e jeito descontraído = linguagem informal!',2:'Para o diretor usamos linguagem formal, mais respeitosa e séria.',3:'Bugado é uma gíria — usada na linguagem informal!'},
+  B3:{1:'CAMPO: M antes de P. Essa é a regra!',2:'VENTO: N antes de T, porque T não é P nem B.',3:'A regra é clara: M antes de P e B!'},
+  B4:{1:'Remetente = quem escreve e envia. Destinatário = quem recebe.',2:'Na carta, Lobato fala do livro "Emília no país da Gramática" que estava na tipografia.',3:'Lobato tratava Gilson como "amigo" — linguagem informal e carinhosa.'},
+  B5:{1:'Cho-co-la-te = 4 sílabas = polissílaba!',2:'Caiu tem encontro vocálico: as vogais A e I estão juntas!',3:'Prato tem encontro consonantal: as consoantes P e R estão juntas!'},
+  B6:{1:'Palha (cobertura de capim) se escreve com LH!',2:'Galo é um animal (ave). Galho é parte da árvore. O H muda tudo!',3:'Família se escreve com LI — note o acento em "famí" antes do LIA.'},
+  BR:{1:'Anne Frank escrevia de modo informal, como se conversasse com a Kitty.',2:'BOMBOM: M antes de B. Sempre M antes de P e B!',3:'Destinatário = quem recebe a carta. Remetente = quem envia.'}
+};
+
+function resp(btn,bloco,q,correct){
+  const qq=document.getElementById(bloco+'q'+q);
+  const btns=qq.querySelectorAll('.ob');
+  btns.forEach(b=>{b.disabled=true;});
+  const fb=document.getElementById(bloco+'f'+q);
+  if(correct){
+    btn.classList.add('ok');
+    fb.className='fb s fok';
+    fb.textContent='✅ Certo! '+feedbacks[bloco][q];
+    const bl=document.getElementById(bloco);
+    let d=parseInt(bl.dataset.d)+1;
+    bl.dataset.d=d;
+    stars++;
+    updateProgress();
+    if(d>=parseInt(bl.dataset.t)){
+      setTimeout(()=>{
+        bl.classList.add('done');
+        document.getElementById(bloco+'c').classList.add('s');
+        blocosDone++;
+        updateProgress();
+        if(blocosDone>=totalBlocos){
+          setTimeout(()=>{document.getElementById('allDone').style.display='block';confetti();},500);
+        }
+      },600);
+    }
+  } else {
+    btn.classList.add('no');
+    fb.className='fb s fno';
+    fb.textContent='❌ Ops! '+feedbacks[bloco][q];
+  }
+}
+
+function updateProgress(){
+  const pct=Math.round((blocosDone/totalBlocos)*100);
+  document.getElementById('pfl').style.width=pct+'%';
+  document.getElementById('ptx').textContent=blocosDone+' de '+totalBlocos+' blocos';
+  document.getElementById('scd').textContent='⭐ '+stars+' estrelas';
+}
+
+// Confetti
+function confetti(){
+  const colors=['#FF6B6B','#4ECDC4','#FFD93D','#6C5CE7','#FF8A5C','#2ECC71'];
+  for(let i=0;i<40;i++){
+    const c=document.createElement('div');
+    c.style.cssText=`position:fixed;width:${8+Math.random()*8}px;height:${8+Math.random()*8}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}vw;top:-10px;border-radius:${Math.random()>.5?'50%':'2px'};z-index:9999;pointer-events:none;`;
+    document.body.appendChild(c);
+    const dur=1500+Math.random()*2000;
+    c.animate([
+      {transform:'translateY(0) rotate(0deg)',opacity:1},
+      {transform:`translateY(${window.innerHeight+50}px) rotate(${360+Math.random()*360}deg)`,opacity:0}
+    ],{duration:dur,easing:'ease-out'});
+    setTimeout(()=>c.remove(),dur);
+  }
+}
+
+// ===== JOGO VERDADEIRO OU FALSO =====
+const allVF=[
+  {s:'O diário é um texto pessoal escrito na 1ª pessoa.',v:true,e:'Certo! O diário é escrito na 1ª pessoa (eu, meu, minha) e registra o dia a dia.'},
+  {s:'Anne Frank chamou seu diário de Moortie.',v:false,e:'Moortie era a gata de Anne! O diário se chamava Kitty.'},
+  {s:'Antes de P e B usamos sempre a letra M.',v:true,e:'Essa é a regra! M antes de P e B: campo, bombom, também.'},
+  {s:'Na palavra VENTO usamos M antes do T.',v:false,e:'VENTO se escreve com N, pois T não é P nem B.'},
+  {s:'Remetente é quem recebe a carta.',v:false,e:'Remetente é quem ENVIA a carta. Quem recebe é o destinatário.'},
+  {s:'A carta tem estrutura fixa: local/data, saudação, mensagem, despedida e assinatura.',v:true,e:'Exatamente! Toda carta segue essa estrutura.'},
+  {s:'Monteiro Lobato criou o Sítio do Picapau Amarelo.',v:true,e:'Monteiro Lobato nasceu em 1882 e criou essa série famosa de livros infantis.'},
+  {s:'A palavra CHOCOLATE é trissílaba.',v:false,e:'Chocolate é polissílaba: cho-co-la-te = 4 sílabas!'},
+  {s:'Encontro vocálico acontece quando duas vogais ficam juntas.',v:true,e:'Isso! Exemplos: feijão (e-i), goiaba (o-i), caiu (a-i).'},
+  {s:'A palavra PRATO tem encontro consonantal.',v:true,e:'Sim! P e R são duas consoantes juntas = encontro consonantal.'},
+  {s:'Galo e galho significam a mesma coisa.',v:false,e:'Galo é uma ave. Galho é parte de uma árvore. O H muda tudo!'},
+  {s:'Letras dobradas como RR e SS se separam na divisão silábica.',v:true,e:'Certo! Car-ro, pas-sa-ro — elas ficam em sílabas diferentes.'},
+  {s:'Linguagem formal é usada em conversas com amigos.',v:false,e:'Com amigos usamos linguagem informal! Formal é para situações sérias.'},
+  {s:'Sílaba tônica é a sílaba mais forte da palavra.',v:true,e:'Toda palavra tem uma sílaba tônica — a que pronunciamos com mais força.'},
+  {s:'A palavra FAMÍLIA se escreve com LH.',v:false,e:'Família se escreve com LI: famí-li-a. Note o acento em "famí" — dica de LI!'},
+  {s:'A palavra CAIU tem encontro vocálico.',v:true,e:'As vogais A e I estão juntas em CAIU = encontro vocálico!'},
+  {s:'Na carta de Monteiro Lobato para Gilson, a linguagem é formal.',v:false,e:'Lobato usou linguagem informal, tratando Gilson como amigo próximo.'},
+  {s:'Uma palavra monossílaba tem apenas 1 sílaba.',v:true,e:'Mono = um. Monossílaba = 1 sílaba! Exemplos: pão, céu, mão.'},
+  {s:'Antes da letra D, usamos M.',v:false,e:'D não é P nem B! Antes de D usamos N. Exemplo: onda, bonde.'},
+  {s:'A palavra BOMBOM tem M antes de B.',v:true,e:'BOM-BOM: M antes de B, seguindo a regra certinho!'},
+];
+
+let gameQuestions=[], gameIdx=0, gameScore=0, gameStarted=false;
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+function startGame(){
+  gameStarted=true;
+  gameQuestions=shuffle(allVF).slice(0,12);
+  gameIdx=0;gameScore=0;
+  document.getElementById('gameResult').classList.remove('s');
+  document.getElementById('gsc').textContent='⭐ 0 acertos';
+  showVF();
+}
+
+function showVF(){
+  if(gameIdx>=gameQuestions.length){endGame();return;}
+  const q=gameQuestions[gameIdx];
+  const pct=Math.round(((gameIdx)/12)*100);
+  document.getElementById('gpg').textContent=`Pergunta ${gameIdx+1} de 12`;
+  document.getElementById('gpfl').style.width=pct+'%';
+  document.getElementById('gameArea').innerHTML=`
+  <div class="vc">
+    <div class="vs">${q.s}</div>
+    <div class="vbs">
+      <button class="vb v" onclick="answerVF(true)">✅ Verdadeiro</button>
+      <button class="vb f" onclick="answerVF(false)">❌ Falso</button>
+    </div>
+    <div class="ve" id="vfExp"></div>
+  </div>`;
+}
+
+function answerVF(answer){
+  const q=gameQuestions[gameIdx];
+  const correct=answer===q.v;
+  const exp=document.getElementById('vfExp');
+  const btns=document.querySelectorAll('.vb');
+  btns.forEach(b=>b.disabled=true);
+  if(correct){
+    gameScore++;
+    exp.style.background='#d4edda';exp.style.color='#155724';
+    exp.innerHTML='✅ <strong>Certo!</strong> '+q.e;
+  } else {
+    exp.style.background='#f8d7da';exp.style.color='#721c24';
+    exp.innerHTML='❌ <strong>Errado!</strong> '+q.e;
+  }
+  exp.classList.add('s');
+  document.getElementById('gsc').textContent='⭐ '+gameScore+' acertos';
+  gameIdx++;
+  setTimeout(showVF,2000);
+}
+
+function endGame(){
+  document.getElementById('gameArea').innerHTML='';
+  document.getElementById('gpfl').style.width='100%';
+  const pct=Math.round((gameScore/12)*100);
+  const r=document.getElementById('gameResult');
+  r.classList.add('s');
+  let emoji,title,starStr;
+  if(pct>=90){emoji='🏆🎉🌟';title='Incrível, Pedro!';starStr='⭐⭐⭐⭐⭐';}
+  else if(pct>=70){emoji='🎉😄';title='Muito bem!';starStr='⭐⭐⭐⭐';}
+  else if(pct>=50){emoji='👍😊';title='Bom trabalho!';starStr='⭐⭐⭐';}
+  else{emoji='💪📚';title='Continue estudando!';starStr='⭐⭐';}
+  document.getElementById('grEmoji').textContent=emoji;
+  document.getElementById('grTitle').textContent=title;
+  document.getElementById('grStars').textContent=starStr;
+  document.getElementById('grText').textContent=`Você acertou ${gameScore} de 12 perguntas!`;
+  document.getElementById('grPct').textContent=pct+'% de acertos';
+  if(pct>=70) confetti();
+}
+</script>
+</body>
+</html>
